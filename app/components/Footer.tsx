@@ -79,11 +79,11 @@ export default function Footer() {
             {/* Direct Touchpoints */}
             <div className="space-y-2 pt-1 font-mono text-xs">
               <a
-                href="tel:9315956745"
+                href="tel:8452050941"
                 className="flex items-center gap-2 text-slate-300 hover:text-[#C5A059] transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>+91 9315956745</span>
+                <span>+91 8452050941</span>
               </a>
               <a
                 href="mailto:support@unfund.in"

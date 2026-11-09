@@ -20,7 +20,7 @@ export default function Services() {
       icon: Award,
       color: "text-unfund-emerald",
       desc: "Find and apply for ₹10L–₹50L government grants (SISFS, BIRAC, iDEX) that give you money without taking company shares.",
-      link: "/grant",
+      link: "/services/grant",
     },
     {
       title: "VC Investment Package",
@@ -28,7 +28,7 @@ export default function Services() {
       icon: BarChart3,
       color: "text-blue-500",
       desc: "Turn your bank receipts and numbers into a clean, 3-minute investment report that VCs and Angel investors can trust.",
-      link: "/vc-investment",
+      link: "/services/vc-investment",
     },
     {
       title: "Cap-Table & Equity Protection",
@@ -36,7 +36,7 @@ export default function Services() {
       icon: Scale,
       color: "text-amber-500",
       desc: "Avoid giving away too much equity to early investors. We help you issue fair and compliant term sheets (iSAFE CCPS notes).",
-      link: "/cap-table",
+      link: "/services/cap-table",
     },
   ];
 

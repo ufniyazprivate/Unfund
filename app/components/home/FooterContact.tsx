@@ -1,12 +1,10 @@
+// app/components/FooterContact.tsx
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient";
 import {
   Phone,
   Mail,
-  Sparkles,
   ShieldCheck,
   Send,
   Loader2,
@@ -39,18 +37,17 @@ export default function FooterContact() {
     setErrorMessage("");
 
     try {
-      // Connects directly to the hero_leads table in Supabase
-      const { error } = await supabase.from("hero_leads").insert([
-        {
-          full_name: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          company_name: formData.companyName || "N/A",
-          service_interest: formData.serviceInterest,
-        },
-      ]);
+      const res = await fetch("/api/footer-contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      if (error) throw error;
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Unable to submit request. Please try again.");
+      }
 
       setSubmitted(true);
       setFormData({
@@ -62,7 +59,7 @@ export default function FooterContact() {
       });
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setErrorMessage(err.message || "Unable to submit request. Please try again.");
+        setErrorMessage(err.message);
       } else {
         setErrorMessage("Unable to submit request. Please try again.");
       }
@@ -75,49 +72,29 @@ export default function FooterContact() {
     <section className="w-full bg-[#FAF8F5] text-unfund-navy py-12 sm:py-16 border-b border-[#C5A059]/20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Full-width 2-column grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* ========================================================= */}
-          {/* LEFT SIDE: HEADING, SUBTEXT & DIRECT CONTACT LINKS        */}
-          {/* ========================================================= */}
+          {/* Left Column: Heading & Contact Channels */}
           <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-            
-            {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-unfund-navy/5 border border-unfund-gold/40 text-[11px] font-mono text-unfund-gold font-bold uppercase tracking-wider">
               <span>Take The Next Step</span>
             </div>
 
-            {/* Headline */}
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-unfund-navy tracking-tight leading-tight">
               Ready to Get Your Startup <span className="text-unfund-gold">Funded?</span>
             </h2>
 
-            {/* Subtext */}
             <p className="text-xs sm:text-sm lg:text-base text-slate-600 font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
               Get expert guidance on bank loans, government grants, and investor fundraising. Fill out your details below for a quick callback.
             </p>
 
-            {/* Quick Contact Links below text */}
             <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-y-3 gap-x-6 text-[11px] font-mono text-slate-600">
               <a
-                href="https://wa.me/919315956745?text=Hi%20UNFUND,%20I%20want%20to%20get%20started%20with%20my%20startup%20funding."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-emerald-600 transition-colors font-medium"
-              >
-                <Image src="/wh.png" alt="WhatsApp" width={16} height={16} className="w-4 h-4 object-contain" />
-                <span>WhatsApp Direct</span>
-              </a>
-
-              <span className="text-slate-300 hidden sm:inline">&bull;</span>
-
-              <a
-                href="tel:9315956745"
+                href="tel:8452050941"
                 className="flex items-center gap-1.5 hover:text-unfund-gold transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-unfund-gold" />
-                <span>+91 93159 56745</span>
+                <span>+91 8452050941</span>
               </a>
 
               <span className="text-slate-300 hidden sm:inline">&bull;</span>
@@ -137,16 +114,11 @@ export default function FooterContact() {
                 <span>100% Confidential</span>
               </span>
             </div>
-
           </div>
 
-          {/* ========================================================= */}
-          {/* RIGHT SIDE: LEAD FORM (SUPABASE INTEGRATED)               */}
-          {/* ========================================================= */}
+          {/* Right Column: Resend Form */}
           <div className="lg:col-span-6 w-full max-w-lg mx-auto lg:max-w-none">
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#C5A059]/30 shadow-md relative overflow-hidden">
-              
-              {/* Gold Top Hairline */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-unfund-gold to-transparent" />
 
               <div className="flex items-center justify-between border-b border-slate-100 pb-3.5 mb-4">
@@ -171,7 +143,7 @@ export default function FooterContact() {
                     Request Received!
                   </h4>
                   <p className="text-xs text-slate-600 max-w-xs mx-auto">
-                    Thank you for reaching out. A funding advisor will call you back shortly.
+                    We sent a confirmation email to your inbox. An advisor will review your venture and call you back shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -182,7 +154,6 @@ export default function FooterContact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3.5">
-                  
                   {errorMessage && (
                     <div className="p-2.5 rounded bg-red-50 border border-red-200 text-red-700 text-xs font-mono">
                       {errorMessage}
@@ -269,15 +240,16 @@ export default function FooterContact() {
                     >
                       <option value="General Funding Consultation">General Funding Consultation</option>
                       <option value="Bank Loan Assistance">Bank Loan Assistance</option>
-                      <option value="Government Grants">Government Grants (SISFS/BIRAC)</option>
+                      <option value="Government Grants (SISFS / BIRAC)">Government Grants (SISFS / BIRAC)</option>
                       <option value="VC Investment Readiness">VC Fundraising & Term Sheets</option>
+                      <option value="Cap-Table & iSAFE Protection">Cap-Table & iSAFE Protection</option>
                     </select>
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 px-4 text-xs uppercase tracking-wider font-bold text-white bg-unfund-navy hover:bg-unfund-dark rounded transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-md"
+                    className="w-full py-3 px-4 text-xs uppercase tracking-wider font-bold text-white bg-unfund-navy hover:bg-unfund-dark rounded transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-md border border-unfund-navy"
                   >
                     {loading ? (
                       <>
@@ -293,11 +265,10 @@ export default function FooterContact() {
                   </button>
 
                   <p className="text-[10px] text-slate-500 text-center font-mono pt-0.5">
-                    Your details are 100% confidential under DPDP privacy regulations.
+                    Your details are confidential under DPDP privacy regulations.
                   </p>
                 </form>
               )}
-
             </div>
           </div>
 
