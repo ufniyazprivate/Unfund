@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
+/* Tailwind CSS v4 Custom Theme Variables */
+@theme {
+  --color-unfund-navy: #0A1128;
+  --color-unfund-dark: #050814;
+  --color-unfund-cream: #F7F4EE;
+  --color-unfund-gold: #C5A059;
+  --color-unfund-gold-hover: #B38F48;
+  --color-unfund-card-dark: #101830;
+  --color-unfund-border-dark: #1E294B;
+  --color-unfund-emerald: #10B981;
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #F7F4EE;
+  --foreground: #0A1128;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Institutional UI Glassmorphism & Micro-Data Tiles */
+.glass-panel-dark {
+  background: rgba(16, 24, 48, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #EAD096 0%, #C5A059 50%, #9B7732 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
