@@ -147,7 +147,7 @@ export default function ContactPage() {
               {/* Direct Touchpoints (Phone & Email) */}
               <div className="space-y-3">
                 <a
-                  href="tel:9315956745"
+                  href="tel:8452050941"
                   className="p-4 rounded-xl bg-white border border-[#C5A059]/30 shadow-xs flex items-center gap-4 hover:border-[#C5A059] transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[#070C1E] text-[#C5A059] flex items-center justify-center shrink-0">
@@ -158,7 +158,7 @@ export default function ContactPage() {
                       Call our desk
                     </div>
                     <div className="text-sm font-semibold text-unfund-navy group-hover:text-[#C5A059] transition-colors font-mono">
-                      +91 9315956745
+                      +91 84520 50941
                     </div>
                   </div>
                 </a>
